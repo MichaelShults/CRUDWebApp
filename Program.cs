@@ -1,7 +1,12 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using CRUDWebApp.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<CRUDWebAppContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CRUDWebAppContext") ?? throw new InvalidOperationException("Connection string 'CRUDWebAppContext' not found.")));
 
 var app = builder.Build();
 
